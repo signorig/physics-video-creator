@@ -1,12 +1,12 @@
 """
-APPLICAZIONE PRINCIPALE INTEGRATA
-Physics Video Creator - Sistema completo per video didattici
+MAIN INTEGRATED APPLICATION
+Physics Video Creator - Complete system for educational videos
 
-Questo software integra:
-- Gestione Slide
-- Simulatore Fisica Interattivo (Equilibrio Statico)
-- Lavagna Digitale
-- Interfaccia unificata per creare video educativi
+This software integrates:
+- Slide Management
+- Interactive Physics Simulator (Static Equilibrium)
+- Digital Whiteboard
+- Unified interface for creating educational videos
 """
 
 import tkinter as tk
@@ -17,7 +17,7 @@ import threading
 import sys
 import os
 
-# Import dei moduli custom
+# Import custom modules
 from slides_manager import SlidesManager
 from interactive_physics import EquilibrioStaticoSimulator
 import matplotlib.pyplot as plt
@@ -26,147 +26,155 @@ import numpy as np
 
 class PhysicsVideoCreator:
     def __init__(self, root):
-        """Inizializza l'applicazione principale"""
+        """Initialize the main application"""
         self.root = root
-        self.root.title("Physics Video Creator - Equilibrio Statico")
+        self.root.title("Physics Video Creator - Static Equilibrium")
         self.root.geometry("1600x900")
         
-        # Stile
+        # Style
         style = ttk.Style()
         style.theme_use('clam')
         
-        # Gestore slide
+        # Slide manager
         self.slides_manager = SlidesManager()
         self.slides_manager.load_slides_from_folder()
         
-        # Stato dell'app
+        # Application state
         self.current_view = "menu"
         self.physics_window = None
         
-        # Crea il layout principale
+        # Create main layout
         self.create_main_layout()
         
         print("\n" + "="*60)
         print("🎬 PHYSICS VIDEO CREATOR")
         print("="*60)
-        print("Applicazione didattica interattiva per video educativi")
-        print("Tema: Equilibrio Statico di un Corpo")
+        print("Interactive educational application for creating videos")
+        print("Topic: Static Equilibrium of a Body")
+        print("Created by: Prof. Signorini")
         print("="*60 + "\n")
     
     def create_main_layout(self):
-        """Crea il layout principale dell'app"""
-        # Frame principale
+        """Create the main application layout"""
+        # Main frame
         self.main_frame = ttk.Frame(self.root)
         self.main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # HEADER
         self.create_header()
         
-        # CONTENUTO PRINCIPALE (cambia in base alla vista)
+        # MAIN CONTENT (changes based on view)
         self.content_frame = ttk.Frame(self.main_frame)
         self.content_frame.pack(fill=tk.BOTH, expand=True, pady=10)
         
         # FOOTER
         self.create_footer()
         
-        # Mostra il menu iniziale
+        # Show main menu
         self.show_menu()
     
     def create_header(self):
-        """Crea l'intestazione dell'app"""
-        header_frame = ttk.Frame(self.main_frame, relief=tk.SUNKEN, height=80)
+        """Create application header"""
+        header_frame = ttk.Frame(self.main_frame, relief=tk.SUNKEN, height=100)
         header_frame.pack(fill=tk.X, pady=(0, 10))
         
-        title_label = ttk.Label(header_frame, text="🎬 Physics Video Creator - Equilibrio Statico", 
+        # Main title
+        title_label = ttk.Label(header_frame, text="🎬 Physics Video Creator - Static Equilibrium", 
                                 font=("Arial", 20, "bold"))
-        title_label.pack(side=tk.LEFT, padx=20, pady=15)
+        title_label.pack(side=tk.LEFT, padx=20, pady=10)
         
-        subtitle_label = ttk.Label(header_frame, text="Strumento didattico per creare video educativi",
+        # Subtitle
+        subtitle_label = ttk.Label(header_frame, text="Educational tool to create teaching videos",
                                    font=("Arial", 12), foreground="gray")
         subtitle_label.pack(side=tk.LEFT, padx=20)
+        
+        # Creator attribution
+        creator_label = ttk.Label(header_frame, text="Created by: Prof. Signorini",
+                                 font=("Arial", 10, "italic"), foreground="darkblue")
+        creator_label.pack(side=tk.RIGHT, padx=20, pady=10)
     
     def create_footer(self):
-        """Crea il footer dell'app"""
+        """Create application footer"""
         footer_frame = ttk.Frame(self.main_frame, relief=tk.SUNKEN)
         footer_frame.pack(fill=tk.X, pady=(10, 0))
         
-        footer_label = ttk.Label(footer_frame, text="Seleziona una modalità per iniziare →", 
+        footer_label = ttk.Label(footer_frame, text="Select a mode to get started →", 
                                 font=("Arial", 10), foreground="darkblue")
         footer_label.pack(side=tk.LEFT, padx=10, pady=5)
         
-        self.status_label = ttk.Label(footer_frame, text="Pronto", font=("Arial", 10))
+        self.status_label = ttk.Label(footer_frame, text="Ready", font=("Arial", 10))
         self.status_label.pack(side=tk.RIGHT, padx=10, pady=5)
     
     def clear_content(self):
-        """Pulisce il frame del contenuto"""
+        """Clear the content frame"""
         for widget in self.content_frame.winfo_children():
             widget.destroy()
     
     def show_menu(self):
-        """Mostra il menu principale"""
+        """Show main menu"""
         self.clear_content()
         self.current_view = "menu"
         
-        # Titolo
-        title = ttk.Label(self.content_frame, text="Scegli una modalità di lavoro:", 
+        # Title
+        title = ttk.Label(self.content_frame, text="Choose a working mode:", 
                          font=("Arial", 16, "bold"))
         title.pack(pady=20)
         
-        # Frame con i bottoni
+        # Frame with buttons
         buttons_frame = ttk.Frame(self.content_frame)
         buttons_frame.pack(pady=40, fill=tk.BOTH, expand=True)
         
-        # Bottone 1: Slide
+        # Button 1: Slides
         self.create_menu_button(
             buttons_frame,
             "📊 SLIDE PRESENTER",
-            "Visualizza e gestisci le slide della presentazione",
+            "View and manage presentation slides",
             self.show_slides_view,
             0, 0
         )
         
-        # Bottone 2: Simulatore Fisica
+        # Button 2: Physics Simulator
         self.create_menu_button(
             buttons_frame,
-            "⚙️ SIMULATORE FISICA",
-            "App interattiva: Equilibrio statico con slider",
+            "⚙️ PHYSICS SIMULATOR",
+            "Interactive app: Static equilibrium with sliders",
             self.show_physics_view,
             0, 1
         )
         
-        # Bottone 3: Lavagna
+        # Button 3: Whiteboard
         self.create_menu_button(
             buttons_frame,
-            "🎨 LAVAGNA DIGITALE",
-            "Lavagna per disegnare e annotare spiegazioni",
+            "🎨 DIGITAL WHITEBOARD",
+            "Whiteboard for drawing and annotating explanations",
             self.show_whiteboard,
             1, 0
         )
         
-        # Bottone 4: Modalità Presentazione
+        # Button 4: Presentation Mode
         self.create_menu_button(
             buttons_frame,
-            "🎬 MODALITÀ PRESENTAZIONE",
-            "Integra Slide + Simulatore + Lavagna",
+            "🎬 PRESENTATION MODE",
+            "Integrates Slides + Simulator + Whiteboard",
             self.show_presentation_mode,
             1, 1
         )
         
-        self.status_label.config(text="Menu principale")
+        self.status_label.config(text="Main menu")
     
     def create_menu_button(self, parent, title, description, command, row, col):
-        """Crea un bottone del menu principale"""
+        """Create a main menu button"""
         button_frame = ttk.LabelFrame(parent, text=title, padding=20)
         button_frame.grid(row=row, column=col, padx=20, pady=20, sticky="nsew", 
                          ipadx=20, ipady=20)
         
-        # Testo descrizione
+        # Description text
         desc_label = ttk.Label(button_frame, text=description, 
                               font=("Arial", 11), foreground="gray", wraplength=250)
         desc_label.pack(pady=10)
         
-        # Bottone
-        btn = ttk.Button(button_frame, text="Apri →", command=command)
+        # Button
+        btn = ttk.Button(button_frame, text="Open →", command=command)
         btn.pack(pady=10)
         
         parent.grid_rowconfigure(0, weight=1)
@@ -175,62 +183,62 @@ class PhysicsVideoCreator:
         parent.grid_columnconfigure(1, weight=1)
     
     def show_slides_view(self):
-        """Mostra la visualizzazione delle slide"""
+        """Show slide presentation view"""
         self.clear_content()
         self.current_view = "slides"
         
-        # Controlli
+        # Controls
         controls_frame = ttk.Frame(self.content_frame)
         controls_frame.pack(fill=tk.X, pady=10)
         
-        ttk.Button(controls_frame, text="◀ Indietro", command=self.show_menu).pack(side=tk.LEFT, padx=5)
+        ttk.Button(controls_frame, text="◀ Back", command=self.show_menu).pack(side=tk.LEFT, padx=5)
         
         ttk.Label(controls_frame, text="SLIDE PRESENTER", font=("Arial", 14, "bold")).pack(side=tk.LEFT, padx=20)
         
         self.slide_info_label = ttk.Label(controls_frame, text="", font=("Arial", 10))
         self.slide_info_label.pack(side=tk.RIGHT, padx=10)
         
-        # Frame per la slide
-        slide_frame = ttk.LabelFrame(self.content_frame, text="Slide Attuale", padding=10)
+        # Frame for slide
+        slide_frame = ttk.LabelFrame(self.content_frame, text="Current Slide", padding=10)
         slide_frame.pack(fill=tk.BOTH, expand=True, pady=10)
         
         self.slide_canvas = tk.Canvas(slide_frame, bg="white", height=500)
         self.slide_canvas.pack(fill=tk.BOTH, expand=True)
         
-        # Controlli navigazione
+        # Navigation controls
         nav_frame = ttk.Frame(self.content_frame)
         nav_frame.pack(fill=tk.X, pady=10)
         
-        ttk.Button(nav_frame, text="◀ Slide Precedente", 
+        ttk.Button(nav_frame, text="◀ Previous Slide", 
                   command=self.prev_slide).pack(side=tk.LEFT, padx=5)
-        ttk.Button(nav_frame, text="Slide Successiva ▶", 
+        ttk.Button(nav_frame, text="Next Slide ▶", 
                   command=self.next_slide).pack(side=tk.LEFT, padx=5)
         
-        # Mostra la prima slide
+        # Show first slide
         self.display_slide()
         
-        self.status_label.config(text="Visualizzazione Slide")
+        self.status_label.config(text="Slide View")
     
     def display_slide(self):
-        """Visualizza la slide corrente"""
+        """Display current slide"""
         slide_image = self.slides_manager.get_current_slide()
         
         if slide_image is not None:
-            # Converti da BGR (OpenCV) a RGB
+            # Convert from BGR (OpenCV) to RGB
             slide_image_rgb = cv2.cvtColor(slide_image, cv2.COLOR_BGR2RGB)
             
-            # Resize per adattare al canvas
+            # Resize to fit canvas
             height = 500
             aspect_ratio = slide_image_rgb.shape[1] / slide_image_rgb.shape[0]
             width = int(height * aspect_ratio)
             
             slide_image_resized = cv2.resize(slide_image_rgb, (width, height))
             
-            # Converti per Tkinter
+            # Convert for Tkinter
             pil_image = Image.fromarray(slide_image_resized)
             photo = ImageTk.PhotoImage(pil_image)
             
-            # Mostra su canvas
+            # Show on canvas
             self.slide_canvas.delete("all")
             self.slide_canvas.create_image(
                 self.slide_canvas.winfo_width()//2,
@@ -239,114 +247,114 @@ class PhysicsVideoCreator:
             )
             self.slide_canvas.image = photo
             
-            # Aggiorna info
+            # Update info
             self.slide_info_label.config(text=self.slides_manager.get_slide_info())
     
     def next_slide(self):
-        """Passa alla slide successiva"""
+        """Go to next slide"""
         self.slides_manager.next_slide()
         self.display_slide()
     
     def prev_slide(self):
-        """Torna alla slide precedente"""
+        """Go to previous slide"""
         self.slides_manager.previous_slide()
         self.display_slide()
     
     def show_physics_view(self):
-        """Mostra il simulatore di fisica"""
+        """Show physics simulator"""
         self.clear_content()
         self.current_view = "physics"
         
-        # Controlli
+        # Controls
         controls_frame = ttk.Frame(self.content_frame)
         controls_frame.pack(fill=tk.X, pady=10)
         
-        ttk.Button(controls_frame, text="◀ Indietro", command=self.show_menu).pack(side=tk.LEFT, padx=5)
-        ttk.Label(controls_frame, text="SIMULATORE EQUILIBRIO STATICO", 
+        ttk.Button(controls_frame, text="◀ Back", command=self.show_menu).pack(side=tk.LEFT, padx=5)
+        ttk.Label(controls_frame, text="STATIC EQUILIBRIUM SIMULATOR", 
                  font=("Arial", 14, "bold")).pack(side=tk.LEFT, padx=20)
         
-        # Messaggio
+        # Message
         msg = ttk.Label(self.content_frame, 
-                       text="Il simulatore si apre in una finestra separata...\nUsa gli slider per modificare i parametri e osserva come cambiano le forze!",
+                       text="The simulator opens in a separate window...\nUse the sliders to modify parameters and observe how forces change!",
                        font=("Arial", 11), foreground="darkblue")
         msg.pack(pady=20)
         
-        # Bottone per lanciare
-        ttk.Button(self.content_frame, text="🚀 Avvia Simulatore", 
+        # Launch button
+        ttk.Button(self.content_frame, text="🚀 Launch Simulator", 
                   command=self.launch_physics_simulator).pack(pady=20)
         
-        self.status_label.config(text="Simulatore Fisica (pronto)")
+        self.status_label.config(text="Physics Simulator (ready)")
     
     def launch_physics_simulator(self):
-        """Lancia il simulatore di fisica"""
-        # Avvia in thread separato per non bloccare l'UI
+        """Launch the physics simulator"""
+        # Launch in separate thread to not block UI
         thread = threading.Thread(target=self._run_physics_sim, daemon=True)
         thread.start()
-        self.status_label.config(text="Simulatore Fisica (in esecuzione)")
+        self.status_label.config(text="Physics Simulator (running)")
     
     def _run_physics_sim(self):
-        """Thread per il simulatore"""
+        """Thread for simulator"""
         simulator = EquilibrioStaticoSimulator()
         simulator.run()
     
     def show_whiteboard(self):
-        """Mostra la lavagna digitale"""
+        """Show digital whiteboard"""
         self.clear_content()
         self.current_view = "whiteboard"
         
-        # Controlli
+        # Controls
         controls_frame = ttk.Frame(self.content_frame)
         controls_frame.pack(fill=tk.X, pady=10)
         
-        ttk.Button(controls_frame, text="◀ Indietro", command=self.show_menu).pack(side=tk.LEFT, padx=5)
-        ttk.Label(controls_frame, text="LAVAGNA DIGITALE", 
+        ttk.Button(controls_frame, text="◀ Back", command=self.show_menu).pack(side=tk.LEFT, padx=5)
+        ttk.Label(controls_frame, text="DIGITAL WHITEBOARD", 
                  font=("Arial", 14, "bold")).pack(side=tk.LEFT, padx=20)
         
-        # Messaggio
+        # Message
         msg = ttk.Label(self.content_frame, 
-                       text="La lavagna si apre in una finestra separata (Pygame)...\nComandi: Mouse per disegnare, C per cancellare, Q per uscire",
+                       text="The whiteboard opens in a separate window (Pygame)...\nCommands: Mouse to draw, C to clear, Q to exit",
                        font=("Arial", 11), foreground="darkblue")
         msg.pack(pady=20)
         
-        # Bottone per lanciare
-        ttk.Button(self.content_frame, text="🎨 Apri Lavagna", 
+        # Launch button
+        ttk.Button(self.content_frame, text="🎨 Open Whiteboard", 
                   command=self.launch_whiteboard).pack(pady=20)
         
-        self.status_label.config(text="Lavagna Digitale (pronta)")
+        self.status_label.config(text="Digital Whiteboard (ready)")
     
     def launch_whiteboard(self):
-        """Lancia la lavagna digitale"""
+        """Launch the digital whiteboard"""
         from whiteboard import Whiteboard
         
         thread = threading.Thread(target=self._run_whiteboard, daemon=True)
         thread.start()
-        self.status_label.config(text="Lavagna Digitale (in esecuzione)")
+        self.status_label.config(text="Digital Whiteboard (running)")
     
     def _run_whiteboard(self):
-        """Thread per la lavagna"""
+        """Thread for whiteboard"""
         from whiteboard import Whiteboard
         whiteboard = Whiteboard()
         whiteboard.run()
     
     def show_presentation_mode(self):
-        """Mostra la modalità presentazione integrata"""
+        """Show integrated presentation mode"""
         self.clear_content()
         self.current_view = "presentation"
         
-        # Controlli
+        # Controls
         controls_frame = ttk.Frame(self.content_frame)
         controls_frame.pack(fill=tk.X, pady=10)
         
-        ttk.Button(controls_frame, text="◀ Menu Principale", command=self.show_menu).pack(side=tk.LEFT, padx=5)
-        ttk.Label(controls_frame, text="🎬 MODALITÀ PRESENTAZIONE", 
+        ttk.Button(controls_frame, text="◀ Main Menu", command=self.show_menu).pack(side=tk.LEFT, padx=5)
+        ttk.Label(controls_frame, text="🎬 PRESENTATION MODE", 
                  font=("Arial", 14, "bold")).pack(side=tk.LEFT, padx=20)
         
-        # Frame principale con 2 colonne
+        # Main frame with 2 columns
         main_split = ttk.PanedWindow(self.content_frame, orient=tk.HORIZONTAL)
         main_split.pack(fill=tk.BOTH, expand=True, pady=10)
         
-        # SINISTRA: Slide
-        left_frame = ttk.LabelFrame(main_split, text="📊 SLIDE", padding=10)
+        # LEFT: Slides
+        left_frame = ttk.LabelFrame(main_split, text="📊 SLIDES", padding=10)
         main_split.add(left_frame, weight=1)
         
         self.pres_slide_canvas = tk.Canvas(left_frame, bg="white", height=400)
@@ -360,34 +368,34 @@ class PhysicsVideoCreator:
         self.pres_slide_info = ttk.Label(left_controls, text="")
         self.pres_slide_info.pack(side=tk.LEFT, padx=10)
         
-        # DESTRA: Pannello di controllo
-        right_frame = ttk.LabelFrame(main_split, text="⚙️ CONTROLLI", padding=10)
+        # RIGHT: Control panel
+        right_frame = ttk.LabelFrame(main_split, text="⚙️ CONTROLS", padding=10)
         main_split.add(right_frame, weight=1)
         
-        # Sezione Simulatore
-        ttk.Label(right_frame, text="Simulatore Fisica:", font=("Arial", 11, "bold")).pack(anchor=tk.W, pady=10)
-        ttk.Button(right_frame, text="🚀 Avvia Simulatore", 
+        # Simulator section
+        ttk.Label(right_frame, text="Physics Simulator:", font=("Arial", 11, "bold")).pack(anchor=tk.W, pady=10)
+        ttk.Button(right_frame, text="🚀 Launch Simulator", 
                   command=self.launch_physics_simulator).pack(fill=tk.X, pady=5)
         
-        # Sezione Lavagna
-        ttk.Label(right_frame, text="Lavagna Digitale:", font=("Arial", 11, "bold")).pack(anchor=tk.W, pady=(20, 10))
-        ttk.Button(right_frame, text="🎨 Apri Lavagna", 
+        # Whiteboard section
+        ttk.Label(right_frame, text="Digital Whiteboard:", font=("Arial", 11, "bold")).pack(anchor=tk.W, pady=(20, 10))
+        ttk.Button(right_frame, text="🎨 Open Whiteboard", 
                   command=self.launch_whiteboard).pack(fill=tk.X, pady=5)
         
-        # Sezione Info
-        ttk.Label(right_frame, text="Info Slide:", font=("Arial", 11, "bold")).pack(anchor=tk.W, pady=(20, 10))
+        # Info section
+        ttk.Label(right_frame, text="Slide Info:", font=("Arial", 11, "bold")).pack(anchor=tk.W, pady=(20, 10))
         info_text = ttk.Label(right_frame, 
-                             text="In questa modalità puoi:\n\n1. Navigare le slide\n2. Lanciare il simulatore di fisica\n3. Aprire la lavagna\n\nPerfetto per registrare il video con OBS Studio!",
+                             text="In this mode you can:\n\n1. Navigate slides\n2. Launch physics simulator\n3. Open whiteboard\n\nPerfect for recording with OBS Studio!",
                              font=("Arial", 10), foreground="darkblue", justify=tk.LEFT)
         info_text.pack(anchor=tk.W, pady=10)
         
-        # Mostra la prima slide
+        # Show first slide
         self.pres_display_slide()
         
-        self.status_label.config(text="Modalità Presentazione")
+        self.status_label.config(text="Presentation Mode")
     
     def pres_display_slide(self):
-        """Mostra la slide nel pannello presentazione"""
+        """Show slide in presentation panel"""
         slide_image = self.slides_manager.get_current_slide()
         
         if slide_image is not None:
@@ -411,21 +419,21 @@ class PhysicsVideoCreator:
             self.pres_slide_info.config(text=self.slides_manager.get_slide_info())
     
     def pres_next_slide(self):
-        """Slide successiva in modalità presentazione"""
+        """Next slide in presentation mode"""
         self.slides_manager.next_slide()
         self.pres_display_slide()
     
     def pres_prev_slide(self):
-        """Slide precedente in modalità presentazione"""
+        """Previous slide in presentation mode"""
         self.slides_manager.previous_slide()
         self.pres_display_slide()
     
     def run(self):
-        """Avvia l'applicazione"""
+        """Launch the application"""
         self.root.mainloop()
 
 def main():
-    """Funzione di avvio"""
+    """Startup function"""
     root = tk.Tk()
     app = PhysicsVideoCreator(root)
     app.run()

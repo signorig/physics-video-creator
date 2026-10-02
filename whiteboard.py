@@ -1,6 +1,6 @@
 """
-Modulo Lavagna Digitale Interattiva
-Permette di disegnare a mano libera su uno sfondo bianco
+Interactive Digital Whiteboard Module
+Allows freehand drawing on a white background
 """
 
 import pygame
@@ -9,18 +9,18 @@ from pygame.locals import *
 
 class Whiteboard:
     def __init__(self, width=1000, height=700):
-        """Inizializza la lavagna digitale"""
+        """Initialize the digital whiteboard"""
         self.width = width
         self.height = height
         self.running = True
         
-        # Inizializza Pygame
+        # Initialize Pygame
         pygame.init()
         self.screen = pygame.display.set_mode((self.width, self.height))
-        pygame.display.set_caption("Lavagna Digitale - Equilibrio Statico")
+        pygame.display.set_caption("Digital Whiteboard - Static Equilibrium")
         self.clock = pygame.time.Clock()
         
-        # Colori
+        # Colors
         self.WHITE = (255, 255, 255)
         self.BLACK = (0, 0, 0)
         self.RED = (255, 0, 0)
@@ -28,21 +28,21 @@ class Whiteboard:
         self.GREEN = (0, 200, 0)
         self.GRAY = (200, 200, 200)
         
-        # Proprietà del disegno
+        # Drawing properties
         self.drawing = False
         self.brush_color = self.BLACK
         self.brush_size = 3
         self.last_pos = None
         
-        # Surface per il disegno
+        # Surface for drawing
         self.canvas = pygame.Surface((self.width, self.height))
         self.canvas.fill(self.WHITE)
         
-        # Font per bottoni e testo
+        # Font for buttons and text
         self.font = pygame.font.Font(None, 24)
         
     def handle_events(self):
-        """Gestisce gli eventi di input"""
+        """Handle input events"""
         for event in pygame.event.get():
             if event.type == QUIT:
                 self.running = False
@@ -61,44 +61,44 @@ class Whiteboard:
                 self.last_pos = event.pos
             
             if event.type == KEYDOWN:
-                if event.key == K_c:  # Cancella
+                if event.key == K_c:  # Clear
                     self.canvas.fill(self.WHITE)
-                elif event.key == K_1:  # Nero
+                elif event.key == K_1:  # Black
                     self.brush_color = self.BLACK
-                elif event.key == K_2:  # Rosso
+                elif event.key == K_2:  # Red
                     self.brush_color = self.RED
-                elif event.key == K_3:  # Blu
+                elif event.key == K_3:  # Blue
                     self.brush_color = self.BLUE
-                elif event.key == K_4:  # Verde
+                elif event.key == K_4:  # Green
                     self.brush_color = self.GREEN
                 elif event.key == K_PLUS or event.key == K_EQUALS:
                     self.brush_size = min(self.brush_size + 2, 20)
                 elif event.key == K_MINUS:
                     self.brush_size = max(self.brush_size - 2, 1)
-                elif event.key == K_q:  # Esci
+                elif event.key == K_q:  # Exit
                     self.running = False
     
     def draw_line(self, start_pos, end_pos):
-        """Disegna una linea tra due punti"""
+        """Draw a line between two points"""
         if start_pos and end_pos:
             pygame.draw.line(self.canvas, self.brush_color, start_pos, end_pos, self.brush_size)
     
     def draw_ui(self):
-        """Disegna l'interfaccia utente"""
-        # Barra dei colori e comandi
+        """Draw the user interface"""
+        # Color and command bar
         ui_height = 50
         pygame.draw.rect(self.screen, self.GRAY, (0, 0, self.width, ui_height))
         
-        # Testo istruzioni
+        # Instruction text
         instructions = [
-            f"C=Cancella | 1=Nero | 2=Rosso | 3=Blu | 4=Verde | +/- Spessore:{self.brush_size} | Q=Esci"
+            f"C=Clear | 1=Black | 2=Red | 3=Blue | 4=Green | +/- Thickness:{self.brush_size} | Q=Exit"
         ]
         
         for i, text in enumerate(instructions):
             text_surface = self.font.render(text, True, self.BLACK)
             self.screen.blit(text_surface, (10, 10 + i * 25))
         
-        # Disegna bottoni colore
+        # Draw color buttons
         button_y = 10
         colors_buttons = [
             (self.BLACK, "N", 60),
@@ -112,25 +112,25 @@ class Whiteboard:
             pygame.draw.rect(self.screen, self.BLACK, (x, button_y, 30, 30), 2)
     
     def render(self):
-        """Renderizza il frame"""
+        """Render the frame"""
         self.screen.fill(self.WHITE)
         self.screen.blit(self.canvas, (0, 50))
         self.draw_ui()
         pygame.display.flip()
     
     def run(self):
-        """Loop principale della lavagna"""
-        print("\n=== LAVAGNA DIGITALE ===")
-        print("Comandi:")
-        print("  Mouse: Disegna")
-        print("  C: Cancella tutto")
-        print("  1: Colore Nero")
-        print("  2: Colore Rosso")
-        print("  3: Colore Blu")
-        print("  4: Colore Verde")
-        print("  +/-: Aumenta/Diminuisci spessore")
-        print("  Q: Esci")
-        print("========================\n")
+        """Main whiteboard loop"""
+        print("\n=== DIGITAL WHITEBOARD ===")
+        print("Commands:")
+        print("  Mouse: Draw")
+        print("  C: Clear everything")
+        print("  1: Black color")
+        print("  2: Red color")
+        print("  3: Blue color")
+        print("  4: Green color")
+        print("  +/-: Increase/Decrease thickness")
+        print("  Q: Exit")
+        print("==========================\n")
         
         while self.running:
             self.handle_events()
