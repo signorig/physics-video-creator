@@ -1,217 +1,217 @@
 # Physics Video Creator
 
-Applicazione didattica integrata per creare video educativi su YouTube.
+Integrated educational application to create educational videos for YouTube.
 
-## 📚 Descrizione
+## 📚 Description
 
-**Physics Video Creator** è uno strumento completo per produrre video didattici su argomenti di fisica. Integra:
+**Physics Video Creator** is a complete tool for producing educational videos on physics topics. It integrates:
 
-- 📊 **Slide Presenter** - Visualizzazione e navigazione delle slide PowerPoint
-- ⚙️ **Simulatore Fisica Interattivo** - App didattica su equilibrio statico con slider
-- 🎨 **Lavagna Digitale** - Disegno a mano libera per annotazioni
-- 🎬 **Modalità Presentazione** - Integrazione di tutti gli elementi
+- 📊 **Slide Presenter** - Viewing and navigation of PowerPoint slides
+- ⚙️ **Interactive Physics Simulator** - Educational app on static equilibrium with sliders
+- 🎨 **Digital Whiteboard** - Freehand drawing for annotations
+- 🎬 **Presentation Mode** - Integration of all elements
 
-## 🎯 Caso di Studio: Equilibrio Statico
+## 🎯 Case Study: Static Equilibrium
 
-L'applicazione include un simulatore completo per l'equilibrio statico di un corpo su un piano inclinato, con:
+The application includes a complete simulator for the static equilibrium of a body on an inclined plane, with:
 
-- Visualizzazione dinamica di tutte le forze (peso, normale, attrito)
-- Slider interattivi per controllare:
-  - Angolo del piano inclinato (0-80°)
-  - Massa del corpo (1-50 kg)
-  - Coefficiente di attrito statico (0-1.0)
-- Analisi automatica dell'equilibrio
-- Calcolo delle accelerazioni in caso di slittamento
+- Dynamic visualization of all forces (weight, normal, friction)
+- Interactive sliders to control:
+  - Angle of inclined plane (0-80°)
+  - Mass of body (1-50 kg)
+  - Coefficient of static friction (0-1.0)
+- Automatic equilibrium analysis
+- Acceleration calculation in case of slipping
 
-## 🚀 Installazione
+## 🚀 Installation
 
-### Prerequisiti
+### Prerequisites
 - Python 3.8+
 - pip
 
-### Step 1: Clona il repository
+### Step 1: Clone the repository
 ```bash
 git clone https://github.com/signorig/physics-video-creator.git
 cd physics-video-creator
 ```
 
-### Step 2: Installa le dipendenze
+### Step 2: Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3: Avvia l'applicazione
+### Step 3: Launch the application
 ```bash
 python app_main.py
 ```
 
-## 📖 Utilizzo
+## 📖 Usage
 
-### 1. Menu Principale
-All'avvio, vedrai 4 opzioni:
+### 1. Main Menu
+On startup, you will see 4 options:
 
 #### 📊 SLIDE PRESENTER
-- Visualizza le slide della presentazione
-- Naviga con i pulsanti "Slide Precedente" e "Slide Successiva"
-- Le slide di esempio sono pre-caricate in `sample_slides/`
+- View presentation slides
+- Navigate with "Previous Slide" and "Next Slide" buttons
+- Sample slides are pre-loaded in `sample_slides/`
 
-#### ⚙️ SIMULATORE FISICA
-- Apre un'applicazione Matplotlib interattiva
-- **Slider Angolo**: Modifica l'inclinazione del piano (0-80°)
-- **Slider Massa**: Modifica la massa del corpo (1-50 kg)
-- **Slider Attrito**: Modifica il coefficiente di attrito statico (0-1.0)
-- Osserva come cambiano le forze in tempo reale
-- L'app mostra automaticamente se il corpo è in equilibrio statico
+#### ⚙️ PHYSICS SIMULATOR
+- Opens an interactive Matplotlib application
+- **Angle Slider**: Modify the plane's inclination (0-80°)
+- **Mass Slider**: Modify the body's mass (1-50 kg)
+- **Friction Slider**: Modify the static friction coefficient (0-1.0)
+- Watch how forces change in real time
+- The app automatically shows if the body is in static equilibrium
 
-#### 🎨 LAVAGNA DIGITALE
-- Apre una finestra Pygame con una lavagna bianca
-- **Mouse**: Disegna liberamente
-- **Tasti 1-4**: Cambio colore (Nero, Rosso, Blu, Verde)
-- **+/-**: Aumenta/Diminuisci spessore pennello
-- **C**: Cancella tutto
-- **Q**: Esci
+#### 🎨 DIGITAL WHITEBOARD
+- Opens a Pygame window with a white whiteboard
+- **Mouse**: Draw freely
+- **Keys 1-4**: Change color (Black, Red, Blue, Green)
+- **+/-**: Increase/Decrease brush thickness
+- **C**: Clear everything
+- **Q**: Exit
 
-#### 🎬 MODALITÀ PRESENTAZIONE
-- Layout integrato con 2 pannelli
-- **Sinistra**: Slide con controlli di navigazione
-- **Destra**: Pulsanti per lanciare simulatore e lavagna
-- **Uso consigliato**: Usa questa modalità per registrare il video
+#### 🎬 PRESENTATION MODE
+- Integrated layout with 2 panels
+- **Left**: Slides with navigation controls
+- **Right**: Buttons to launch simulator and whiteboard
+- **Recommended use**: Use this mode to record video
 
-## 📹 Come Registrare un Video
+## 📹 How to Record a Video
 
-### Preparazione
-1. Avvia l'app: `python app_main.py`
-2. Seleziona "MODALITÀ PRESENTAZIONE"
-3. Apri OBS Studio (https://obsproject.com/)
+### Preparation
+1. Launch the app: `python app_main.py`
+2. Select "PRESENTATION MODE"
+3. Open OBS Studio (https://obsproject.com/)
 
-### Configurazione OBS Studio
-1. **Aggiungi Sorgente** → **Cattura Finestra** → Seleziona la finestra di Python
-2. **Audio**: Configura il microfono per la voce narrante
-3. **Layout**: Regola la risoluzione per YouTube (1920x1080 consigliato)
+### OBS Studio Configuration
+1. **Add Source** → **Window Capture** → Select Python window
+2. **Audio**: Configure microphone for narration
+3. **Layout**: Adjust resolution for YouTube (1920x1080 recommended)
 
-### Registrazione
-1. Avvia la registrazione in OBS
-2. Naviga tra le slide nell'app
-3. Quando necessario, lancia il simulatore di fisica (appare sopra le slide)
-4. Quando necessario, apri la lavagna digitale per annotazioni
-5. Spiega mentre navighi
-6. Interrompi la registrazione al termine
+### Recording
+1. Start recording in OBS
+2. Navigate through slides in the app
+3. When needed, launch the physics simulator (appears above slides)
+4. When needed, open the digital whiteboard for annotations
+5. Explain while navigating
+6. Stop recording when finished
 
-### Post-Produzione
-- Elabora il video in un editor (DaVinci Resolve, Adobe Premiere, OpenShot)
-- Aggiungi titoli, musica di sottofondo, effetti
-- Esporta e carica su YouTube
+### Post-Production
+- Process video in an editor (DaVinci Resolve, Adobe Premiere, OpenShot)
+- Add titles, background music, effects
+- Export and upload to YouTube
 
-## 📁 Struttura dei File
+## 📁 File Structure
 
 ```
 physics-video-creator/
-├── app_main.py              # Applicazione principale
-├── interactive_physics.py    # Simulatore di fisica
-├── whiteboard.py            # Lavagna digitale
-├── slides_manager.py        # Gestore slide
-├── requirements.txt         # Dipendenze Python
-├── sample_slides/           # Cartella slide di esempio
+├── app_main.py              # Main application
+├── interactive_physics.py    # Physics simulator
+├── whiteboard.py            # Digital whiteboard
+├── slides_manager.py        # Slide manager
+├── requirements.txt         # Python dependencies
+├── sample_slides/           # Sample slides folder
 │   ├── slide_00.png
 │   ├── slide_01.png
 │   ├── slide_02.png
 │   ├── slide_03.png
 │   └── slide_04.png
-└── README.md               # Questo file
+└── README.md               # This file
 ```
 
-## 🎓 Argomenti Trattati
+## 🎓 Topics Covered
 
-### Equilibrio Statico
-Le slide di esempio trattano:
-1. Definizione di equilibrio statico
-2. Forze su un piano inclinato (decomposizione)
-3. Coefficiente di attrito (statico vs dinamico)
-4. Condizione di equilibrio: μ_s ≥ tan(θ)
-5. Applicazioni pratiche
+### Static Equilibrium
+The sample slides cover:
+1. Definition of static equilibrium
+2. Forces on inclined plane (decomposition)
+3. Coefficient of friction (static vs kinetic)
+4. Equilibrium condition: μ_s ≥ tan(θ)
+5. Practical applications
 
-### Fisica Applicata
-Il simulatore mostra:
-- ✓ Equilibrio mantenuto quando: `f ≥ W·sin(θ)`
-- ✗ Corpo in slittamento quando: `f < W·sin(θ)`
-- Accelerazione di slittamento: `a = (W·sin(θ) - f) / m`
+### Applied Physics
+The simulator shows:
+- ✓ Equilibrium maintained when: `f ≥ W·sin(θ)`
+- ✗ Body slipping when: `f < W·sin(θ)`
+- Slipping acceleration: `a = (W·sin(θ) - f) / m`
 
-## 🛠️ Personalizzazione
+## 🛠️ Customization
 
-### Aggiungere Slide Personali
-1. Prepara le tue slide come immagini PNG/JPG
-2. Metti i file in una cartella (es: `mie_slide/`)
-3. Nel codice `app_main.py`, modifica:
+### Adding Custom Slides
+1. Prepare your slides as PNG/JPG images
+2. Put files in a folder (e.g., `my_slides/`)
+3. In `app_main.py`, modify:
    ```python
-   self.slides_manager.load_slides_from_folder("mie_slide/")
+   self.slides_manager.load_slides_from_folder("my_slides/")
    ```
 
-### Modificare i Parametri di Fisica
-Modifica `interactive_physics.py`:
-- `self.mass` = massa iniziale (kg)
-- `self.angle` = angolo iniziale (°)
-- `self.mu_s` = coefficiente attrito iniziale
-- Range degli slider nelle funzioni `setup_sliders()`
+### Modifying Physics Parameters
+Edit `interactive_physics.py`:
+- `self.mass` = initial mass (kg)
+- `self.angle` = initial angle (°)
+- `self.mu_s` = initial friction coefficient
+- Slider range in `setup_sliders()` functions
 
-### Personalizzare la Lavagna
-Modifica `whiteboard.py`:
-- Colori personalizzati nella sezione `self.color_*`
-- Spessore pennello di default: `self.brush_size`
-- Dimensioni finestra: parametri di `__init__`
+### Customizing the Whiteboard
+Edit `whiteboard.py`:
+- Custom colors in `self.color_*` section
+- Default brush thickness: `self.brush_size`
+- Window dimensions: `__init__` parameters
 
-## 📊 Caratteristiche Avanzate
+## 📊 Advanced Features
 
-### Analisi Automatica
-Il simulatore calcola automaticamente:
-- Componenti del peso (parallela e perpendicolare)
-- Forza normale e attrito massimo
-- Stato di equilibrio
-- Accelerazione in caso di slittamento
+### Automatic Analysis
+The simulator automatically calculates:
+- Weight components (parallel and perpendicular)
+- Normal force and maximum friction
+- Equilibrium state
+- Acceleration in case of slipping
 
-### Visualizzazione Fisica
-- Vettori di forza in scala
-- Componenti decomposte (linea tratteggiata)
-- Codice colore per le forze:
-  - 🔴 Rosso = Peso
-  - 🟢 Verde = Forza Normale
-  - 🔵 Blu = Attrito
-  - 🟠 Arancio = Componenti
+### Physics Visualization
+- Force vectors in scale
+- Decomposed components (dashed line)
+- Color coding for forces:
+  - 🔴 Red = Weight
+  - 🟢 Green = Normal Force
+  - 🔵 Blue = Friction
+  - 🟠 Orange = Components
 
 ## 🐛 Troubleshooting
 
-### Il simulatore non si apre
-- Verifica di aver installato matplotlib: `pip install matplotlib`
-- Prova a lanciarlo da terminale per vedere gli errori: `python interactive_physics.py`
+### Simulator won't open
+- Verify matplotlib is installed: `pip install matplotlib`
+- Try launching from terminal to see errors: `python interactive_physics.py`
 
-### La lavagna non funziona
-- Controlla Pygame: `pip install pygame`
-- Assicurati di avere uno schermo disponibile
+### Whiteboard not working
+- Check Pygame: `pip install pygame`
+- Make sure you have a display available
 
-### Le slide non si caricano
-- Verifica che la cartella `sample_slides/` esista
-- Controlla i permessi di lettura sui file PNG
+### Slides won't load
+- Verify the `sample_slides/` folder exists
+- Check read permissions on PNG files
 
-## 📝 Licenza
+## 📝 License
 
-MIT License - Libero per uso educativo e commerciale
+MIT License - Free for educational and commercial use
 
-## 👨‍🏫 Per gli Insegnanti
+## 👨‍🏫 For Teachers
 
-Questo strumento è stato creato per facilitare la didattica interattiva:
+This tool was created to facilitate interactive teaching:
 
-- **Coinvolgimento**: Gli studenti vedono subito la fisica in azione
-- **Interattività**: Puoi cambiare i parametri durante la lezione
-- **Registrazione**: Perfetto per lezioni a distanza e archivi
-- **Estendibilità**: Facilmente adattabile ad altri argomenti di fisica
+- **Engagement**: Students immediately see physics in action
+- **Interactivity**: You can change parameters during the lesson
+- **Recording**: Perfect for remote lessons and archives
+- **Extensibility**: Easily adaptable to other physics topics
 
-## 🤝 Contributi
+## 🤝 Contributions
 
-Sei benvenuto a proporre miglioramenti! Esempi:
-- Nuovi simulatori di fisica
-- Temi aggiuntivi per le slide
-- Miglioramenti all'interfaccia
-- Traduzioni in altre lingue
+You are welcome to suggest improvements! Examples:
+- New physics simulators
+- Additional slide themes
+- Interface improvements
+- Translations to other languages
 
 ---
 
-**Creato per l'insegnamento della fisica moderna e interattiva** 🎓
+**Created for modern and interactive physics education** 🎓
